@@ -9,12 +9,13 @@ public class Platform : MonoBehaviour
     public Vector2 rightBound { get; private set; }
     private float enemyWidthOffset = 0;
     [HideInInspector] public float EnemyWidthOffset { get { return enemyWidthOffset; } set { enemyWidthOffset = value + edgeBuffer; } }//Enemy will define when it lands on a platform
-    public NearbyPlatformData[] otherPlatformData;
+    public NearbyPlatformData[] surroundingPlatformsData;
     BoxCollider2D boxCollider;
     LayerMask ignore;
 
     public float horizontalDropDistance = 1; //The amount that the enemy moves sideways while dropping down onto a lower platform. Will depend on how big the enemy sprites are. Can edit in inspector if its a close call whether the enemy will land or not
     float edgeBuffer = .1f; //Distance enemies will stand from the edge, this gets added to the width offset
+    float jumpClearanceModifier = .2f;
 
     private void Awake()
     {
@@ -53,48 +54,68 @@ public class Platform : MonoBehaviour
 
     void GenerateNearbyPlatformLinks()
     {
-        if(otherPlatformData.Length > 0)
+        if(surroundingPlatformsData.Length > 0)
         {
             NearbyPlatformData plat;
-            for(int i = 0; i < otherPlatformData.Length; i++)
+            for(int i = 0; i < surroundingPlatformsData.Length; i++)
             {
-                plat = otherPlatformData[i];
-                if (plat.overlapping)//Lower platforms
+                plat = surroundingPlatformsData[i];
+                if(plat.connectionEnabled) 
                 {
-                    switch (plat.side)
+                    if (plat.overlapping)//Lower platforms
                     {
-                        case NearbyPlatformData.sides.both:
-                            plat.nearbyLeftPlatformLandingPoint = new Vector2(leftBound.x - horizontalDropDistance, plat.platform.GetComponent<Platform>().rightBound.y);
-                            Debug.DrawLine(leftBound, plat.nearbyLeftPlatformLandingPoint, Color.red, 999);
-                            plat.nearbyRightPlatformLandingPoint = new Vector2(rightBound.x + horizontalDropDistance, plat.platform.GetComponent<Platform>().leftBound.y);
-                            Debug.DrawLine(rightBound, plat.nearbyRightPlatformLandingPoint, Color.red, 999);
-                            break;
-                        case NearbyPlatformData.sides.left:
-                            plat.nearbyLeftPlatformLandingPoint = new Vector2(leftBound.x - horizontalDropDistance, plat.platform.GetComponent<Platform>().rightBound.y);
-                            Debug.DrawLine(leftBound, plat.nearbyLeftPlatformLandingPoint, Color.red, 999);
-                            break;
-                        case NearbyPlatformData.sides.right:
-                            plat.nearbyRightPlatformLandingPoint = new Vector2(rightBound.x + horizontalDropDistance, plat.platform.GetComponent<Platform>().leftBound.y);
-                            Debug.DrawLine(rightBound, plat.nearbyRightPlatformLandingPoint, Color.red, 999);
-                            break;
-                        default:
-                            print("Invalid platform side setting");
-                            break;
+                        switch (plat.side)
+                        {
+                            case NearbyPlatformData.sides.both:
+                                plat.nearbyLeftPlatformLandingPoint = new Vector2(leftBound.x - horizontalDropDistance, plat.platform.GetComponent<Platform>().rightBound.y);
+                                Debug.DrawLine(leftBound, plat.nearbyLeftPlatformLandingPoint, Color.red, 999);
+                                plat.nearbyRightPlatformLandingPoint = new Vector2(rightBound.x + horizontalDropDistance, plat.platform.GetComponent<Platform>().leftBound.y);
+                                Debug.DrawLine(rightBound, plat.nearbyRightPlatformLandingPoint, Color.red, 999);
+                                break;
+                            case NearbyPlatformData.sides.left:
+                                if(leftBound.y < plat.platform.GetComponent<Platform>().leftBound.y)//If the connected platform is above the current platform
+                                {
+                                    plat.platformJumpingPoint = new Vector2(plat.platform.GetComponent<Platform>().rightBound.x + horizontalDropDistance + jumpClearanceModifier, leftBound.y);
+                                    Debug.DrawLine(plat.platformJumpingPoint, plat.platform.GetComponent<Platform>().rightBound, Color.magenta, 999);
+                                }
+                                else
+                                {
+                                    plat.nearbyLeftPlatformLandingPoint = new Vector2(leftBound.x - horizontalDropDistance, plat.platform.GetComponent<Platform>().rightBound.y);
+                                    Debug.DrawLine(leftBound, plat.nearbyLeftPlatformLandingPoint, Color.red, 999);
+                                }
+                                break;
+                            case NearbyPlatformData.sides.right:
+                                if (rightBound.y < plat.platform.GetComponent<Platform>().rightBound.y)//If the connected platform is above the current platform
+                                {
+                                    plat.platformJumpingPoint = new Vector2(plat.platform.GetComponent<Platform>().leftBound.x - horizontalDropDistance - jumpClearanceModifier, rightBound.y);
+                                    Debug.DrawLine(plat.platformJumpingPoint, plat.platform.GetComponent<Platform>().leftBound, Color.magenta, 999);
+                                }
+                                else
+                                {
+                                    plat.nearbyRightPlatformLandingPoint = new Vector2(rightBound.x + horizontalDropDistance, plat.platform.GetComponent<Platform>().leftBound.y);
+                                    Debug.DrawLine(rightBound, plat.nearbyRightPlatformLandingPoint, Color.red, 999);
+                                }
+                                    
+                                break;
+                            default:
+                                print("Invalid platform side setting");
+                                break;
+                        }
                     }
-                }
-                else
-                {
-                    switch (plat.side)
+                    else
                     {
-                        case NearbyPlatformData.sides.left://Non-overlapping platforms physically can't be connected on both sides
-                            Debug.DrawLine(leftBound, plat.platform.GetComponent<Platform>().rightBound, Color.red, 999);
-                            break;
-                        case NearbyPlatformData.sides.right:
-                            Debug.DrawLine(rightBound, plat.platform.GetComponent<Platform>().leftBound, Color.red, 999);
-                            break;
-                        default:
-                            print("Invalid platform side setting");
-                            break;
+                        switch (plat.side)
+                        {
+                            case NearbyPlatformData.sides.left://Non-overlapping platforms physically can't be connected on both sides
+                                Debug.DrawLine(leftBound, plat.platform.GetComponent<Platform>().rightBound, Color.yellow, 999);
+                                break;
+                            case NearbyPlatformData.sides.right:
+                                Debug.DrawLine(rightBound, plat.platform.GetComponent<Platform>().leftBound, Color.yellow, 999);
+                                break;
+                            default:
+                                print("Invalid platform side setting");
+                                break;
+                        }
                     }
                 }
             }
@@ -105,13 +126,15 @@ public class Platform : MonoBehaviour
 
 
 [Serializable]
-public struct NearbyPlatformData//Assign these in the inspector
+public class NearbyPlatformData//Assign these in the inspector
 {
     public enum sides { both, right, left }
+    public bool connectionEnabled = true;
     public GameObject platform;
     public sides side;//0 if can be jumped to from either side of current platform, 1 if only on the left bound, 2 if only on the right bound
     public bool overlapping;//Whether or not the player jumps down to this platform or across to it (See pathfinding documentation in the discord for visuals)
 
     [HideInInspector] public Vector2 nearbyLeftPlatformLandingPoint;//These may or may not be used based on the platform. They are only used for overlapping platforms because non-overlapping ones just use the platform bounds
     [HideInInspector] public Vector2 nearbyRightPlatformLandingPoint;
+    [HideInInspector] public Vector2 platformJumpingPoint;
 }
