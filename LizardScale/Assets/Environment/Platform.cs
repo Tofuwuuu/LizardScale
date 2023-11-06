@@ -9,7 +9,7 @@ public class Platform : MonoBehaviour
     public Vector2 rightBound { get; private set; }
     private float enemyWidthOffset = 0;
     [HideInInspector] public float EnemyWidthOffset { get { return enemyWidthOffset; } set { enemyWidthOffset = value + edgeBuffer; } }//Enemy will define when it lands on a platform
-    public NearbyPlatformData[] platformData;
+    public NearbyPlatformData[] otherPlatformData;
     BoxCollider2D boxCollider;
     LayerMask ignore;
 
@@ -53,12 +53,12 @@ public class Platform : MonoBehaviour
 
     void GenerateNearbyPlatformLinks()
     {
-        if(platformData.Length > 0)
+        if(otherPlatformData.Length > 0)
         {
             NearbyPlatformData plat;
-            for(int i = 0; i < platformData.Length; i++)
+            for(int i = 0; i < otherPlatformData.Length; i++)
             {
-                plat = platformData[i];
+                plat = otherPlatformData[i];
                 if (plat.overlapping)//Lower platforms
                 {
                     switch (plat.side)
@@ -101,20 +101,6 @@ public class Platform : MonoBehaviour
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
