@@ -31,11 +31,11 @@ public class Idle : BaseState //Not Moving
     {
         if(CheckAgroDistance(enemy.transform.position, GetPlayerLocation(enemy), enemy.agroRange))
         {
-            Debug.Log("Player in Range");
+            //Debug.Log("Player in Range");
         }
         else
         {
-            Debug.Log("Player out of range");
+            //Debug.Log("Player out of range");
         }
         
     }
