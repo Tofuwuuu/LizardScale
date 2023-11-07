@@ -209,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 1887543414}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: otherPlatformData.Array.data[0].side
@@ -241,7 +241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].side
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].platform
@@ -256,7 +256,23 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[1].overlapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[0].otherPlatform
+      value: 
+      objectReference: {fileID: 691892522}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[1].otherPlatform
+      value: 
+      objectReference: {fileID: 1887543414}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].connectionEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[1].connectionEnabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -364,7 +380,7 @@ PrefabInstance:
       objectReference: {fileID: 1010649918}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: otherPlatformData.Array.data[0].side
@@ -396,7 +412,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[2].side
-      value: 2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[3].side
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].platform
@@ -416,7 +436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].overlapping
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[1].overlapping
@@ -424,8 +444,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[2].overlapping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[3].overlapping
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[0].otherPlatform
+      value: 
+      objectReference: {fileID: 1010649918}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[1].otherPlatform
+      value: 
+      objectReference: {fileID: 1010649918}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[2].otherPlatform
+      value: 
+      objectReference: {fileID: 378511488}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[3].otherPlatform
+      value: 
+      objectReference: {fileID: 1617005423}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].connectionEnabled
       value: 1
@@ -438,11 +478,72 @@ PrefabInstance:
       propertyPath: surroundingPlatformsData.Array.data[2].connectionEnabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[3].connectionEnabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+--- !u!1001 &599084289
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 134915184059859387, guid: 8610a82dd4968424b8a67093d18ca249, type: 3}
+      propertyPath: m_Name
+      value: PathingController
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209650123474963670, guid: 8610a82dd4968424b8a67093d18ca249, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.9936705
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209650123474963670, guid: 8610a82dd4968424b8a67093d18ca249, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.69823295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209650123474963670, guid: 8610a82dd4968424b8a67093d18ca249, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209650123474963670, guid: 8610a82dd4968424b8a67093d18ca249, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209650123474963670, guid: 8610a82dd4968424b8a67093d18ca249, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209650123474963670, guid: 8610a82dd4968424b8a67093d18ca249, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209650123474963670, guid: 8610a82dd4968424b8a67093d18ca249, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209650123474963670, guid: 8610a82dd4968424b8a67093d18ca249, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209650123474963670, guid: 8610a82dd4968424b8a67093d18ca249, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209650123474963670, guid: 8610a82dd4968424b8a67093d18ca249, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8610a82dd4968424b8a67093d18ca249, type: 3}
 --- !u!1001 &663455651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -561,11 +662,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].side
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[1].side
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].platform
@@ -584,9 +685,21 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
-      propertyPath: surroundingPlatformsData.Array.data[1].overlapping
+      propertyPath: surroundingPlatformsData.Array.data[0].overlapping
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[1].overlapping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[0].otherPlatform
+      value: 
+      objectReference: {fileID: 378511488}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[1].otherPlatform
+      value: 
+      objectReference: {fileID: 691892522}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].connectionEnabled
       value: 1
@@ -699,7 +812,7 @@ PrefabInstance:
       objectReference: {fileID: 1887543414}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: otherPlatformData.Array.data[0].side
@@ -743,11 +856,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[1].side
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[2].side
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[3].side
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].platform
@@ -779,12 +896,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[1].overlapping
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[2].overlapping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[3].overlapping
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[0].otherPlatform
+      value: 
+      objectReference: {fileID: 1010649918}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[1].otherPlatform
+      value: 
+      objectReference: {fileID: 1010649918}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[2].otherPlatform
+      value: 
+      objectReference: {fileID: 1887543414}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[3].otherPlatform
+      value: 
+      objectReference: {fileID: 387531104}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].connectionEnabled
       value: 1
@@ -795,6 +932,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[2].connectionEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[3].connectionEnabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1333,7 +1474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].side
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[1].side
@@ -1341,7 +1482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[2].side
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].platform
@@ -1369,16 +1510,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].overlapping
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[1].overlapping
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[2].overlapping
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[0].otherPlatform
+      value: 
+      objectReference: {fileID: 387531104}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[1].otherPlatform
+      value: 
+      objectReference: {fileID: 1617005423}
+    - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: surroundingPlatformsData.Array.data[2].otherPlatform
+      value: 
+      objectReference: {fileID: 378511488}
     - target: {fileID: 6972094894261484495, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: surroundingPlatformsData.Array.data[0].connectionEnabled
       value: 1
@@ -1635,3 +1788,4 @@ SceneRoots:
   - {fileID: 118358889}
   - {fileID: 936561340}
   - {fileID: 2001130813}
+  - {fileID: 599084289}
