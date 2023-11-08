@@ -7,6 +7,7 @@ public class Platform : MonoBehaviour
 {
     public Vector2 leftBound {get; private set;}
     public Vector2 rightBound { get; private set; }
+    public GameObject player { get; private set; }
     private float enemyWidthOffset = 0;
     [HideInInspector] public float EnemyWidthOffset { get { return enemyWidthOffset; } set { enemyWidthOffset = value + edgeBuffer; } }//Enemy will define when it lands on a platform
     public ConnectionPlatform[] surroundingPlatformsData;
@@ -34,27 +35,18 @@ public class Platform : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         ignore |= (1 << LayerMask.NameToLayer("Environment"));//prevents accidental detection of enemies or other objects while defining platform boundaries. Walls and Platforms must be in the "Environment" layer
         SetBounds();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Start()
     {
         GenerateNearbyPlatformLinks();
         pathingManager = GameObject.FindGameObjectWithTag("PathingController").GetComponent<PathingManager>();
-        if(pathingManager != null )
+        if(pathingManager != null && surroundingPlatformsData.Length != 0)
         {
             AddDataToManager();
         }
     }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -100,13 +92,13 @@ public class Platform : MonoBehaviour
                                 {
                                     plat.currentPlatformJumpPoint = new Vector2(plat.otherPlatform.GetComponent<Platform>().rightBound.x + horizontalDropDistance + jumpClearanceModifier, leftBound.y);
                                     plat.connectedPlatformJumpPoint = plat.otherPlatform.GetComponent<Platform>().rightBound;
-                                    Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.magenta, 999);
+                                    //Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.magenta, 999);
                                 }
                                 else
                                 {
                                     plat.connectedPlatformJumpPoint = new Vector2(leftBound.x - horizontalDropDistance, plat.otherPlatform.GetComponent<Platform>().rightBound.y);
                                     plat.currentPlatformJumpPoint = leftBound;
-                                    Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.yellow, 999);
+                                    //Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.yellow, 999);
                                 }
                                 break;
                             case ConnectionPlatform.sides.right:
@@ -114,13 +106,13 @@ public class Platform : MonoBehaviour
                                 {
                                     plat.currentPlatformJumpPoint = new Vector2(plat.otherPlatform.GetComponent<Platform>().leftBound.x - horizontalDropDistance - jumpClearanceModifier, rightBound.y);
                                     plat.connectedPlatformJumpPoint = plat.otherPlatform.GetComponent<Platform>().leftBound;
-                                    Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.magenta, 999);
+                                    //Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.magenta, 999);
                                 }
                                 else
                                 {
                                     plat.connectedPlatformJumpPoint = new Vector2(rightBound.x + horizontalDropDistance, plat.otherPlatform.GetComponent<Platform>().leftBound.y);
                                     plat.currentPlatformJumpPoint = rightBound;
-                                    Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.yellow, 999);
+                                    //Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.yellow, 999);
                                 } 
                                 break;
                             default:
@@ -135,19 +127,19 @@ public class Platform : MonoBehaviour
                             case ConnectionPlatform.sides.left:
                                 plat.currentPlatformJumpPoint = leftBound;
                                 plat.connectedPlatformJumpPoint = plat.otherPlatform.GetComponent<Platform>().rightBound;
-                                Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.red, 999);
+                                //Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.red, 999);
                                 break;
                             case ConnectionPlatform.sides.right:
                                 plat.currentPlatformJumpPoint = rightBound;
                                 plat.connectedPlatformJumpPoint = plat.otherPlatform.GetComponent<Platform>().leftBound;
-                                Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.red, 999);
+                                //Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.red, 999);
                                 break;
                             default:
                                 print("Invalid platform side setting");
                                 break;
                         }
                     }
-                    //plat.cost =Vector2.Distance(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint);
+                    //plat.cost = Vector2.Distance(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint);
                 
                 }
             }
@@ -156,14 +148,14 @@ public class Platform : MonoBehaviour
 
     private void AddDataToManager()
     {
-
+        pathingManager.AddConnections(this, surroundingPlatformsData);
     }
 }
 
 
 
 [Serializable]
-public class ConnectionPlatform//Assign these in the inspector
+public class ConnectionPlatform : IComparable<ConnectionPlatform>//Assign these in the inspector
 {
     public enum sides { right, left }
     public bool connectionEnabled = true;
@@ -174,4 +166,9 @@ public class ConnectionPlatform//Assign these in the inspector
 
     [HideInInspector] public Vector2 connectedPlatformJumpPoint;
     [HideInInspector] public Vector2 currentPlatformJumpPoint;
+
+    public int CompareTo(ConnectionPlatform other)
+    {
+        return cost.CompareTo(other.cost);
+    }
 }
