@@ -26,28 +26,32 @@ public abstract class BaseState
 
     public bool MoveTo(Enemy enemy, Vector2 target, float speed)
     {
-        if(enemy.transform.position.x != target.x)
+        /*if(enemy.transform.position.x != target.x)
         {
-            if(enemy.transform.position.x < target.x)
+            if(enemy.transform.position.x <= target.x)
             {
                 enemy.transform.Translate(1 * speed * Time.deltaTime, 0, 0);
-                if (enemy.transform.position.x > target.x)
+                if (enemy.transform.position.x <= target.x)
                 {
                     enemy.transform.position = target;
                     return true;
                 }
+                return false;
             }
             else
             {
                 enemy.transform.Translate(-1 * speed * Time.deltaTime, 0, 0);
-                if (enemy.transform.position.x < target.x)
+                if (enemy.transform.position.x <= target.x)
                 {
                     enemy.transform.position = target;
                     return true;
                 }
+                return false;
             }
         }
-        return false;
+        return true;*/
+        
+        
     }
 }
 
@@ -82,21 +86,42 @@ public class Idle : BaseState //Not Moving
 
 public class Pacing : BaseState //Choses 2 points on the current platform and walks between them
 {
+    enum sides { right,left}
+    bool status;
+    sides currentTarget;
     public override void StateUpdate(Enemy enemy)
     {
-        if (CheckAgroDistance(enemy.transform.position, GetPlayerLocation(enemy), enemy.agroRange))
+        if(enemy.Platform != null)
         {
-            Debug.Log("Player in Range");
+            if (!status)
+            {
+                if (currentTarget == sides.left)
+                {
+                    status = MoveTo(enemy, enemy.Platform.leftBound, enemy.speed);
+                }
+                else
+                {
+                    status = MoveTo(enemy, enemy.Platform.rightBound, enemy.speed);
+                }
+            }
+            else
+            {
+                if (currentTarget == sides.left)
+                {
+                    currentTarget = sides.right;
+                }
+                else
+                {
+                    currentTarget = sides.left;
+                }
+            }
         }
-        else
-        {
-            Debug.Log("Player out of range");
-        }
-
+        
     }
     public override void StateBegin(Enemy enemy)
     {
-
+        currentTarget = sides.left;
+        Debug.Log("Pacing");
     }
     public override void StateEnd(Enemy enemy)
     {

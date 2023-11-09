@@ -10,6 +10,7 @@ public class PathingManager : MonoBehaviour
 
     private void Awake()
     {
+        connectionDictionary = new Dictionary<Platform, ConnectionPlatform[]>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
     

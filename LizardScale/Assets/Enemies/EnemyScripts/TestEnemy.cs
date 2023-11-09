@@ -10,10 +10,13 @@ public class TestEnemy : Enemy
         states.Add(new Idle());
         states.Add(new Pacing());
         CurrentState = states[0];
+        SwitchState(states[1]);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         CurrentState.StateUpdate(this);
     }
+
+    
 }

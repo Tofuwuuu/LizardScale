@@ -34,6 +34,13 @@ public abstract class Enemy : MonoBehaviour
         {
             Platform = collision.gameObject.GetComponent<Platform>();
             Platform.EnemyWidthOffset = width;
+            //print("here");
         }
+    }
+
+    protected void SwitchState(BaseState state)
+    {
+        state.StateBegin(this);
+        CurrentState = state;
     }
 }
