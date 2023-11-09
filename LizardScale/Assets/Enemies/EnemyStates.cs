@@ -23,6 +23,32 @@ public abstract class BaseState
     {
         return(Vector3.Distance(enemyLocation, targetLocation) < agroRadius);
     }
+
+    public bool MoveTo(Enemy enemy, Vector2 target, float speed)
+    {
+        if(enemy.transform.position.x != target.x)
+        {
+            if(enemy.transform.position.x < target.x)
+            {
+                enemy.transform.Translate(1 * speed * Time.deltaTime, 0, 0);
+                if (enemy.transform.position.x > target.x)
+                {
+                    enemy.transform.position = target;
+                    return true;
+                }
+            }
+            else
+            {
+                enemy.transform.Translate(-1 * speed * Time.deltaTime, 0, 0);
+                if (enemy.transform.position.x < target.x)
+                {
+                    enemy.transform.position = target;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
 
 public class Idle : BaseState //Not Moving

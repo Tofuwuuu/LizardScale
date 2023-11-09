@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicPlatform (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 241923061622034775, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: m_TagString
+      value: Walkable
+      objectReference: {fileID: 0}
     - target: {fileID: 1737027844544031121, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: m_LocalScale.x
       value: 4.3390436
@@ -301,6 +305,10 @@ PrefabInstance:
     - target: {fileID: 241923061622034775, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: m_Name
       value: BasicPlatform (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 241923061622034775, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: m_TagString
+      value: Walkable
       objectReference: {fileID: 0}
     - target: {fileID: 1737027844544031121, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: m_LocalScale.x
@@ -556,6 +564,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicPlatform (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 241923061622034775, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: m_TagString
+      value: Walkable
+      objectReference: {fileID: 0}
     - target: {fileID: 1737027844544031121, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: m_LocalScale.x
       value: 4.3390436
@@ -729,6 +741,10 @@ PrefabInstance:
     - target: {fileID: 241923061622034775, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: m_Name
       value: BasicPlatform (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 241923061622034775, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: m_TagString
+      value: Walkable
       objectReference: {fileID: 0}
     - target: {fileID: 1737027844544031121, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: m_LocalScale.x
@@ -1177,6 +1193,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicPlatform (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 241923061622034775, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: m_TagString
+      value: Walkable
+      objectReference: {fileID: 0}
     - target: {fileID: 1737027844544031121, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: m_LocalScale.x
       value: 14.9154625
@@ -1339,6 +1359,10 @@ PrefabInstance:
     - target: {fileID: 241923061622034775, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: m_Name
       value: BasicPlatform4
+      objectReference: {fileID: 0}
+    - target: {fileID: 241923061622034775, guid: d0dee615baadc654c94160edd012e37e, type: 3}
+      propertyPath: m_TagString
+      value: Walkable
       objectReference: {fileID: 0}
     - target: {fileID: 1737027844544031121, guid: d0dee615baadc654c94160edd012e37e, type: 3}
       propertyPath: m_LocalScale.x

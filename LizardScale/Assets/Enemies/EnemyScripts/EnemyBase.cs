@@ -13,6 +13,10 @@ public abstract class Enemy : MonoBehaviour
     public List<BaseState> states;
     public BaseState CurrentState { get; protected set; }
 
+    public Platform Platform { get; protected set; }
+
+    float width = .3f;
+
 
     private void Awake()//Set all the variables stored in the scriptable object. 
     {
@@ -22,5 +26,14 @@ public abstract class Enemy : MonoBehaviour
         agroRange = enemyType.agroDistance;
         canJump = enemyType.canJump;
         states = new List<BaseState>();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Walkable")
+        {
+            Platform = collision.gameObject.GetComponent<Platform>();
+            Platform.EnemyWidthOffset = width;
+        }
     }
 }

@@ -17,18 +17,12 @@ public class PathingManager : MonoBehaviour
     {
         connectionDictionary.Add(platform, connections);
     }
+       
+             
     
-    
-    
-    
-    
-    
-    
-    
-    
-    /*public List<ConnectionPlatform> FindPath(Platform currentPlatform, Platform targetPlatform)
+    public List<ConnectionPlatform> FindPath(Platform currentPlatform, Platform targetPlatform)
     {
-        Dictionary<Platform, Platform> parentMap = new Dictionary<Platform, Platform>();
+        Dictionary<Platform, ConnectionPlatform> parentMap = new Dictionary<Platform, ConnectionPlatform>();
         Dictionary<Platform, float> distanceMap = new Dictionary<Platform, float>();
         PlatformQueue<ConnectionPlatform> queue = new PlatformQueue<ConnectionPlatform>();
 
@@ -38,25 +32,35 @@ public class PathingManager : MonoBehaviour
 
             queue.Enqueue(conn);
             distanceMap[conn.otherPlatform.GetComponent<Platform>()] = conn.cost;
-            parentMap[conn.otherPlatform.GetComponent<Platform>()] = currentPlatform;
+            parentMap[conn.otherPlatform.GetComponent<Platform>()] = conn;
         }
 
         while (queue.Count > 0)
         {
-            ConnectionPlatform currentlyExploringPlatform = queue.Dequeue();
+            ConnectionPlatform currentlyExploring = queue.Dequeue();
 
-            if (currentlyExploringPlatform.otherPlatform == targetPlatform)
+            if (currentlyExploring.otherPlatform.GetComponent<Platform>() == targetPlatform)
             {
-                List
+                return (MakePath(currentPlatform, targetPlatform, parentMap));
+            }
+            if(connectionDictionary.ContainsKey(currentlyExploring.otherPlatform.GetComponent<Platform>()) || connectionDictionary[currentlyExploring.otherPlatform.GetComponent<Platform>()].Length == 0) 
+            {
+                currentlyExploring = parentMap[currentlyExploring.otherPlatform.GetComponent<Platform>()];
+                continue;
+            }
+            foreach(ConnectionPlatform neighbor in connectionDictionary[currentPlatform])
+            {
+                float calcDist = distanceMap[currentlyExploring.otherPlatform.GetComponent<Platform>()];
+                if (!distanceMap.ContainsKey(neighbor.otherPlatform.GetComponent<Platform>()) || calcDist < distanceMap[neighbor.otherPlatform.GetComponent<Platform>()])
+                {
+                    distanceMap[neighbor.otherPlatform.GetComponent<Platform>()] = calcDist;
+                    parentMap[neighbor.otherPlatform.GetComponent<Platform>()] = currentlyExploring;
+                    queue.Enqueue(neighbor);
+                }
             }
         }
-        
-        
-        
-        
-        
-        //return 
-    }*/
+        return null;
+    }
 
     public List<ConnectionPlatform> MakePath(Platform currentPlatform, Platform targetPlatform, Dictionary<Platform, ConnectionPlatform> parentMap)
     {
