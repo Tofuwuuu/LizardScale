@@ -26,32 +26,12 @@ public abstract class BaseState
 
     public bool MoveTo(Enemy enemy, Vector2 target, float speed)
     {
-        /*if(enemy.transform.position.x != target.x)
+        enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, target, speed);
+        if(Vector2.Distance(new Vector2(enemy.transform.position.x, 0), new Vector2(target.x, 0)) < .01f)
         {
-            if(enemy.transform.position.x <= target.x)
-            {
-                enemy.transform.Translate(1 * speed * Time.deltaTime, 0, 0);
-                if (enemy.transform.position.x <= target.x)
-                {
-                    enemy.transform.position = target;
-                    return true;
-                }
-                return false;
-            }
-            else
-            {
-                enemy.transform.Translate(-1 * speed * Time.deltaTime, 0, 0);
-                if (enemy.transform.position.x <= target.x)
-                {
-                    enemy.transform.position = target;
-                    return true;
-                }
-                return false;
-            }
+            return true;
         }
-        return true;*/
-        
-        
+        return false;
     }
 }
 
@@ -89,6 +69,7 @@ public class Pacing : BaseState //Choses 2 points on the current platform and wa
     enum sides { right,left}
     bool status;
     sides currentTarget;
+    float progress;
     public override void StateUpdate(Enemy enemy)
     {
         if(enemy.Platform != null)
@@ -97,15 +78,19 @@ public class Pacing : BaseState //Choses 2 points on the current platform and wa
             {
                 if (currentTarget == sides.left)
                 {
-                    status = MoveTo(enemy, enemy.Platform.leftBound, enemy.speed);
+                    progress = Mathf.Clamp01(enemy.speed * Time.deltaTime);
+                    status = MoveTo(enemy, enemy.Platform.leftBound, progress);
+                    
                 }
                 else
                 {
-                    status = MoveTo(enemy, enemy.Platform.rightBound, enemy.speed);
+                    progress = Mathf.Clamp01(enemy.speed * Time.deltaTime);
+                    status = MoveTo(enemy, enemy.Platform.rightBound, progress);
                 }
             }
             else
             {
+                
                 if (currentTarget == sides.left)
                 {
                     currentTarget = sides.right;
@@ -114,14 +99,14 @@ public class Pacing : BaseState //Choses 2 points on the current platform and wa
                 {
                     currentTarget = sides.left;
                 }
+                progress = 0;
+                status = false;
             }
         }
-        
     }
     public override void StateBegin(Enemy enemy)
     {
         currentTarget = sides.left;
-        Debug.Log("Pacing");
     }
     public override void StateEnd(Enemy enemy)
     {

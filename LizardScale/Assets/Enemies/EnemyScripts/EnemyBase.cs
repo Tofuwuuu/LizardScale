@@ -15,7 +15,7 @@ public abstract class Enemy : MonoBehaviour
 
     public Platform Platform { get; protected set; }
 
-    float width = .3f;
+    protected float width = .3f;
 
 
     private void Awake()//Set all the variables stored in the scriptable object. 
@@ -35,6 +35,14 @@ public abstract class Enemy : MonoBehaviour
             Platform = collision.gameObject.GetComponent<Platform>();
             Platform.EnemyWidthOffset = width;
             //print("here");
+            Platform.SetBounds();
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Walkable")
+        {
+            Platform = null;
         }
     }
 

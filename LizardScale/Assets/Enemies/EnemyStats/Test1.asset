@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Test1
   m_EditorClassIdentifier: 
   health: 100
-  speed: 5
+  speed: 1
+  chasingSpeed: 5
+  agroDistance: 5
   canJump: 0
   attacks:
   - {fileID: 11400000, guid: ef8359242bd74a044a2b4be26ee19b12, type: 2}

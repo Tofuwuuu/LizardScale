@@ -7,6 +7,7 @@ public class TestEnemy : Enemy
 {
     private void Start()
     {
+        //width = 1;
         states.Add(new Idle());
         states.Add(new Pacing());
         CurrentState = states[0];

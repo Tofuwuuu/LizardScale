@@ -50,7 +50,7 @@ public class Platform : MonoBehaviour
 
 
 
-    private void SetBounds()
+    public void SetBounds()
     {
         leftBound = new Vector2((transform.position.x + boxCollider.bounds.extents.x * -1) + enemyWidthOffset , transform.position.y + boxCollider.bounds.extents.y); //Left-most point of the platform
         rightBound = new Vector2((transform.position.x + boxCollider.bounds.extents.x) - enemyWidthOffset, transform.position.y + boxCollider.bounds.extents.y);//Right-most point of the platform
