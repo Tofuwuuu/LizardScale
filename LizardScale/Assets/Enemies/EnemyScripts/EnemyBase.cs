@@ -9,9 +9,12 @@ public abstract class Enemy : MonoBehaviour
     [field: SerializeField] public float hp { get; private set; }
     public float speed { get; private set; }
     public float agroRange { get; private set; } //Distance before being agroed
+    public bool hasAgro { get; protected set; }
     public bool canJump { get; private set; } //Can jump between platforms?
+
     public List<BaseState> states;
-    public BaseState CurrentState { get; protected set; }
+    public List<EnemyAttackSO> attacks;
+    [field: SerializeField] public BaseState CurrentState { get; protected set; }
 
     public Platform Platform { get; protected set; }
 
@@ -26,6 +29,11 @@ public abstract class Enemy : MonoBehaviour
         agroRange = enemyType.agroDistance;
         canJump = enemyType.canJump;
         states = new List<BaseState>();
+        attacks = new List<EnemyAttackSO>();
+        foreach(EnemyAttackSO atk in enemyType.attacks)
+        {
+            attacks.Add(atk);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -46,9 +54,22 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected void SwitchState(BaseState state)
+    protected virtual void SwitchState(BaseState state)
     {
         state.StateBegin(this);
         CurrentState = state;
+    }
+
+    protected virtual bool CheckAgroDistance()
+    {
+        if(hasAgro)
+        {
+            return (Vector3.Distance(this.transform.position, player.transform.position) > agroRange * 1.5f);
+        }
+        else
+        {
+            return (Vector3.Distance(this.transform.position, player.transform.position) < agroRange);
+        }
+        
     }
 }
