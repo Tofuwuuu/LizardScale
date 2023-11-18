@@ -64,7 +64,7 @@ public abstract class Enemy : MonoBehaviour
     {
         if(hasAgro)
         {
-            return (Vector3.Distance(this.transform.position, player.transform.position) > agroRange * 1.5f);
+            return (Vector3.Distance(this.transform.position, player.transform.position) < (agroRange * 2f));
         }
         else
         {

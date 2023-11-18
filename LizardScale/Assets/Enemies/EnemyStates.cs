@@ -114,8 +114,14 @@ public class Hovering : BaseState
         target = Vector2.zero;
         isCompleted = false;
         target = enemy.transform.position + new Vector3(UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-3, 3), 0);//picks random direction to float in
-        int adjust = enemy.transform.position.x < target.x ? -1 : 1;
-        enemy.transform.localScale = new Vector3((float)Mathf.Abs(enemy.transform.localScale.x) * adjust, (float)enemy.transform.localScale.y, (float)enemy.transform.localScale.z);//turns the sprite based on direction
+        if (enemy.transform.position.x < target.x)
+        {
+            enemy.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            enemy.GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
     public override void StateEnd(Enemy enemy)
     {
@@ -151,6 +157,14 @@ public class FlyingChasing : BaseState
     {
         target = GetPlayerLocation(enemy);
         enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, target, enemy.speed);
+        if (enemy.transform.position.x < GetPlayerLocation(enemy).x)
+        {
+            enemy.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            enemy.GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
     public override void StateBegin(Enemy enemy)
     {
@@ -165,15 +179,24 @@ public class FlyingChasing : BaseState
 
 public class Shooting : BaseState
 {
-    Vector2 target;
     public override void StateUpdate(Enemy enemy)
     {
-        target = GetPlayerLocation(enemy);
-        enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, target, enemy.speed);
+
     }
     public override void StateBegin(Enemy enemy)
     {
         isCompleted = false;
+        RangedFlyer e = enemy as RangedFlyer;
+        if(enemy.transform.position.x < GetPlayerLocation(enemy).x)
+        {
+            enemy.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            enemy.GetComponent<SpriteRenderer>().flipX=false;
+        }
+        
+        e.Shoot();
     }
     public override void StateEnd(Enemy enemy)
     {

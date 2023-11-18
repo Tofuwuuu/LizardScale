@@ -9,86 +9,87 @@ public class RangedFlyer : Enemy
 
     private void Start()
     {
-        projectile = GameObject.Find("GunReference/Projectile");
+        projectile = transform.Find("GunReference/Projectile").gameObject;
         projectile.GetComponent<Projectile>().damage = attacks[0].attackDamage;
         Shoot();
         hasAgro = false;
-        states.Add(new Idle());
-        states.Add(new Hovering());
-        states.Add(new FlyingChasing());
-        states.Add(new Shooting());
+        states.Add(new Idle());//0
+        states.Add(new Hovering());//1
+        states.Add(new FlyingChasing());//2
+        states.Add(new Shooting());//3
+        CurrentState = states[0];
         SwitchState(states[1]);
         //states.Add(new )
     }
 
     private void FixedUpdate()
     {
+        CurrentState.StateUpdate(this);
         if (!hasAgro)
         {
-            CurrentState.StateUpdate(this);
+            if(CurrentState == states[0])
+            {
+                hasAgro = CheckAgroDistance();
+                if(hasAgro)
+                {
+                    SwitchState(states[2]);
+                }
+            }//Idling, will start chasing the player if in range
             if (CurrentState == states[1])
             {
-                if (CheckAgroDistance())
-                {
-                    hasAgro = true;
-                }
                 if (CurrentState.isCompleted)
                 {
-                    StopCoroutine(Movementimer());
                     SwitchState(states[0]);
-                    StartCoroutine(PauseHovering());
+                    StartCoroutine(PauseHovering(1, 2));
                 }
-            }
+            }//Randomly Hovering
         }
         else
         {
-            CurrentState.StateUpdate(this);
             if (CurrentState == states[2])
             {
-                if (CheckAgroDistance())
+                hasAgro = CheckAgroDistance();
+                if(!hasAgro)
                 {
-                    hasAgro = true;
+                    SwitchState(states[1]);
                 }
                 if (CurrentState.isCompleted)
                 {
-                    StopCoroutine(Movementimer());
                     SwitchState(states[3]);
                 }
-            }
-            else if (CurrentState == states[3])
-            {
-                Shoot();
-            }
+            }//Chasing the player. Will deagro if he gets too far away and shoots occasionally
         }
     }
 
     protected override void SwitchState(BaseState state)
     {
+        StopAllCoroutines();
+        CurrentState.StateEnd(this);
         if(state == states[1] || state == states[2])//if switching to hovering state, start the timer that prevents getting stuck. Else stop it
         {
-            StopCoroutine(Movementimer());
             StartCoroutine(Movementimer());
         }
-        else
+        else if(state == states[3])
         {
-            StopCoroutine(Movementimer());
+            StartCoroutine(PauseHovering(2, 4));
         }
-        state.StateBegin(this);
         CurrentState = state;
+        state.StateBegin(this);
     }
 
-    void Shoot()
+    public void Shoot()
     {
-        projectile.SetActive(true);
-        projectile.transform.position = GetComponentInChildren<Transform>().position;
         projectile.GetComponent<Projectile>().Target = player.transform.position;
+        projectile.transform.position = GetComponentInChildren<Transform>().position;
+        projectile.GetComponent<Projectile>().CalculateDirection();
+        projectile.SetActive(true);
     }
 
 
-    IEnumerator PauseHovering()
+    IEnumerator PauseHovering(int state ,float time)
     {
-        yield return new WaitForSeconds(2f);
-        SwitchState(states[1]);
+        yield return new WaitForSeconds(time);
+        SwitchState(states[state]);
     }
 
     IEnumerator Movementimer()
