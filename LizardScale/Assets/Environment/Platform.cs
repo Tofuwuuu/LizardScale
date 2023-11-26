@@ -92,13 +92,13 @@ public class Platform : MonoBehaviour
                                 {
                                     plat.currentPlatformJumpPoint = new Vector2(plat.otherPlatform.GetComponent<Platform>().rightBound.x + horizontalDropDistance + jumpClearanceModifier, leftBound.y);
                                     plat.connectedPlatformJumpPoint = plat.otherPlatform.GetComponent<Platform>().rightBound;
-                                    //Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.magenta, 999);
+                                    Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.magenta, 999);
                                 }
                                 else
                                 {
                                     plat.connectedPlatformJumpPoint = new Vector2(leftBound.x - horizontalDropDistance, plat.otherPlatform.GetComponent<Platform>().rightBound.y);
                                     plat.currentPlatformJumpPoint = leftBound;
-                                    //Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.yellow, 999);
+                                    Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.yellow, 999);
                                 }
                                 break;
                             case ConnectionPlatform.sides.right:
@@ -106,13 +106,13 @@ public class Platform : MonoBehaviour
                                 {
                                     plat.currentPlatformJumpPoint = new Vector2(plat.otherPlatform.GetComponent<Platform>().leftBound.x - horizontalDropDistance - jumpClearanceModifier, rightBound.y);
                                     plat.connectedPlatformJumpPoint = plat.otherPlatform.GetComponent<Platform>().leftBound;
-                                    //Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.magenta, 999);
+                                    Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.magenta, 999);
                                 }
                                 else
                                 {
                                     plat.connectedPlatformJumpPoint = new Vector2(rightBound.x + horizontalDropDistance, plat.otherPlatform.GetComponent<Platform>().leftBound.y);
                                     plat.currentPlatformJumpPoint = rightBound;
-                                    //Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.yellow, 999);
+                                    Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.yellow, 999);
                                 } 
                                 break;
                             default:
@@ -127,12 +127,12 @@ public class Platform : MonoBehaviour
                             case ConnectionPlatform.sides.left:
                                 plat.currentPlatformJumpPoint = leftBound;
                                 plat.connectedPlatformJumpPoint = plat.otherPlatform.GetComponent<Platform>().rightBound;
-                                //Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.red, 999);
+                                Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.red, 999);
                                 break;
                             case ConnectionPlatform.sides.right:
                                 plat.currentPlatformJumpPoint = rightBound;
                                 plat.connectedPlatformJumpPoint = plat.otherPlatform.GetComponent<Platform>().leftBound;
-                                //Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.red, 999);
+                                Debug.DrawLine(plat.currentPlatformJumpPoint, plat.connectedPlatformJumpPoint, Color.red, 999);
                                 break;
                             default:
                                 print("Invalid platform side setting");
