@@ -8,6 +8,9 @@ public class PathingManager : MonoBehaviour
     [SerializeField] Dictionary<Platform, ConnectionPlatform[]> connectionDictionary;
     GameObject player;
 
+    public delegate void PathUpdate();
+    public static event PathUpdate updated;
+
     private void Awake()
     {
         connectionDictionary = new Dictionary<Platform, ConnectionPlatform[]>();
