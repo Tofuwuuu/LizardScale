@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 73311846828382315}
   m_Layer: 3
   m_Name: BasicPlatform
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0c9330f36a7934f947edfc4fa7c641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformData: []
+  surroundingPlatformsData: []
+  horizontalDropDistance: 1
 --- !u!61 &5217570562683958302
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -133,7 +134,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7,
+    type: 3}
   m_Color: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
   m_FlipX: 0
   m_FlipY: 0
