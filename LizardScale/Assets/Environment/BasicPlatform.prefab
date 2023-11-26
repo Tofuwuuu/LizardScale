@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0c9330f36a7934f947edfc4fa7c641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformData: []
+  surroundingPlatformsData: []
+  horizontalDropDistance: 2
 --- !u!61 &5217570562683958302
 BoxCollider2D:
   m_ObjectHideFlags: 0

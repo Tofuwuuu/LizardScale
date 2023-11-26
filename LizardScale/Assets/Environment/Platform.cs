@@ -162,7 +162,7 @@ public class ConnectionPlatform : IComparable<ConnectionPlatform>//Assign these 
     public GameObject otherPlatform;
     public sides side;//0 if can be jumped to from either side of current platform, 1 if only on the left bound, 2 if only on the right bound
     public bool overlapping;//Whether or not the player jumps down to this platform or across to it (See pathfinding documentation in the discord for visuals)
-    public float cost;
+    [HideInInspector] public float cost;
 
     [HideInInspector] public Vector2 connectedPlatformJumpPoint;
     [HideInInspector] public Vector2 currentPlatformJumpPoint;
