@@ -16,7 +16,7 @@ public class Platform : MonoBehaviour
     PathingManager pathingManager;
 
     public float horizontalDropDistance = 1; //The amount that the enemy moves sideways while dropping down onto a lower platform. Will depend on how big the enemy sprites are. Can edit in inspector if its a close call whether the enemy will land or not
-    float edgeBuffer = .1f; //Distance enemies will stand from the edge, this gets added to the width offset
+    float edgeBuffer = .5f; //Distance enemies will stand from the edge, this gets added to the width offset
     float jumpClearanceModifier = .2f;
 
 
@@ -52,6 +52,7 @@ public class Platform : MonoBehaviour
 
     public void SetBounds()
     {
+        EnemyWidthOffset = .2f;
         leftBound = new Vector2((transform.position.x + boxCollider.bounds.extents.x * -1) + enemyWidthOffset , transform.position.y + boxCollider.bounds.extents.y); //Left-most point of the platform
         rightBound = new Vector2((transform.position.x + boxCollider.bounds.extents.x) - enemyWidthOffset, transform.position.y + boxCollider.bounds.extents.y);//Right-most point of the platform
 
@@ -151,6 +152,9 @@ public class Platform : MonoBehaviour
         pathingManager.AddConnections(this, surroundingPlatformsData);
     }
 }
+
+
+
 
 
 

@@ -27,7 +27,7 @@ public abstract class BaseState
     }
     public bool MoveTo(Enemy enemy, Vector2 target, float speed)
     {
-        enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, target, speed);
+        enemy.transform.position = Vector2.MoveTowards(new Vector2(enemy.transform.position.x, enemy.transform.position.y), new Vector2(target.x, enemy.transform.position.y), speed);
         if(Vector2.Distance(new Vector2(enemy.transform.position.x, 0), new Vector2(target.x, 0)) < .01f)
         {
             return true;
@@ -62,7 +62,7 @@ public class Pacing : BaseState
     float progress;
     public override void StateUpdate(Enemy enemy)
     {
-        if(enemy.Platform != null)
+        if (enemy.Platform != null)
         {
             if (!status)
             {
@@ -70,7 +70,7 @@ public class Pacing : BaseState
                 {
                     progress = Mathf.Clamp01(enemy.speed * Time.deltaTime);
                     status = MoveTo(enemy, enemy.Platform.leftBound, progress);
-                    
+
                 }
                 else
                 {
@@ -80,7 +80,7 @@ public class Pacing : BaseState
             }
             else
             {
-                
+
                 if (currentTarget == sides.left)
                 {
                     currentTarget = sides.right;
@@ -93,6 +93,7 @@ public class Pacing : BaseState
                 status = false;
             }
         }
+        //else { Debug.Log("hh"); }
     }
     public override void StateBegin(Enemy enemy)
     {
@@ -201,5 +202,39 @@ public class Shooting : BaseState
     public override void StateEnd(Enemy enemy)
     {
         isCompleted = true;
+    }
+}
+
+
+public class Chasing : BaseState
+{
+    public override void StateUpdate(Enemy enemy)
+    {
+        MoveTo(enemy, GetPlayerLocation(enemy), enemy.speed * Time.deltaTime);
+        
+    }
+    public override void StateBegin(Enemy enemy)
+    {
+        isCompleted=false;
+    }
+    public override void StateEnd(Enemy enemy)
+    {
+        isCompleted=true;
+    }
+}
+
+public class MeleeAttacking : BaseState
+{
+    public override void StateUpdate(Enemy enemy)
+    {
+        
+    }
+    public override void StateBegin(Enemy enemy)
+    {
+        isCompleted=false;
+    }
+    public override void StateEnd(Enemy enemy)
+    {
+        isCompleted=true;
     }
 }

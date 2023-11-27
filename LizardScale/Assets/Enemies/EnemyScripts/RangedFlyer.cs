@@ -19,7 +19,6 @@ public class RangedFlyer : Enemy
         states.Add(new Shooting());//3
         CurrentState = states[0];
         SwitchState(states[1]);
-        //states.Add(new )
     }
 
     private void FixedUpdate()

@@ -4,7 +4,12 @@ namespace SupanthaPaul
 {
 	public class PlayerController : MonoBehaviour
 	{
-		[SerializeField] private float speed;
+		PathingManager pathingManager;
+		public Platform platform;
+
+
+        #region ImportedSetup
+        [SerializeField] private float speed;
 		[Header("Jumping")]
 		[SerializeField] private float jumpForce;
 		[SerializeField] private float fallMultiplier;
@@ -40,7 +45,6 @@ namespace SupanthaPaul
 		public Vector2 wallClimbForce = new Vector2(4f, 14f);
 
 		private Rigidbody2D m_rb;
-		private ParticleSystem m_dustParticle;
 		private bool m_facingRight = true;
 		private readonly float m_groundedRememberTime = 0.25f;
 		private float m_groundedRemember = 0f;
@@ -60,16 +64,14 @@ namespace SupanthaPaul
 		// 0 -> none, 1 -> right, -1 -> left
 		private int m_onWallSide = 0;
 		private int m_playerSide = 1;
+        #endregion
 
-
-		void Start()
+        void Start()
 		{
-			// create pools for particles
-			PoolManager.instance.CreatePool(dashEffect, 2);
-			PoolManager.instance.CreatePool(jumpEffect, 2);
-
-			// if it's the player, make this instance currently playable
-			if (transform.CompareTag("Player"))
+			whatIsGround |= 0;
+            #region importedStart
+            // if it's the player, make this instance currently playable
+            if (transform.CompareTag("Player"))
 				isCurrentlyPlayable = true;
 
 			m_extraJumps = extraJumpCount;
@@ -78,14 +80,15 @@ namespace SupanthaPaul
 			m_extraJumpForce = jumpForce * 0.7f;
 
 			m_rb = GetComponent<Rigidbody2D>();
-			m_dustParticle = GetComponentInChildren<ParticleSystem>();
-		}
+            #endregion
+        }
 
-		private void FixedUpdate()
+        private void FixedUpdate()
 		{
-			// check if grounded
-			isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-			var position = transform.position;
+            #region importedFixedUpdate
+            // check if grounded
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+            var position = transform.position;
 			// check if on wall
 			m_onWall = Physics2D.OverlapCircle((Vector2)position + grabRightOffset, grabCheckRadius, whatIsGround)
 			          || Physics2D.OverlapCircle((Vector2)position + grabLeftOffset, grabCheckRadius, whatIsGround);
@@ -162,25 +165,15 @@ namespace SupanthaPaul
 				}
 				if (m_wallGrabbing && isGrounded)
 					m_wallGrabbing = false;
-
-				// enable/disable dust particles
-				float playerVelocityMag = m_rb.velocity.sqrMagnitude;
-				if(m_dustParticle.isPlaying && playerVelocityMag == 0f)
-				{
-					m_dustParticle.Stop();
-				}
-				else if(!m_dustParticle.isPlaying && playerVelocityMag > 0f)
-				{
-					m_dustParticle.Play();
-				}
-
-			}
-		}
+                #endregion
+            }
+        }
 
 		private void Update()
 		{
-			// horizontal input
-			moveInput = InputSystem.HorizontalRaw();
+            #region importedUpdate
+            // horizontal input
+            moveInput = InputSystem.HorizontalRaw();
 
 			if (isGrounded)
 			{
@@ -198,10 +191,7 @@ namespace SupanthaPaul
 			{
 				// dash input (left shift)
 				if (InputSystem.Dash())
-				{
-					isDashing = true;
-					// dash effect
-					PoolManager.instance.ReuseObject(dashEffect, transform.position, Quaternion.identity);
+				{ 
 					// if player in air while dashing
 					if(!isGrounded)
 					{
@@ -221,14 +211,10 @@ namespace SupanthaPaul
 			{
 				m_rb.velocity = new Vector2(m_rb.velocity.x, m_extraJumpForce); ;
 				m_extraJumps--;
-				// jumpEffect
-				PoolManager.instance.ReuseObject(jumpEffect, groundCheck.position, Quaternion.identity);
 			}
 			else if(InputSystem.Jump() && (isGrounded || m_groundedRemember > 0f))	// normal single jumping
 			{
 				m_rb.velocity = new Vector2(m_rb.velocity.x, jumpForce);
-				// jumpEffect
-				PoolManager.instance.ReuseObject(jumpEffect, groundCheck.position, Quaternion.identity);
 			}
 			else if(InputSystem.Jump() && m_wallGrabbing && moveInput!=m_onWallSide )		// wall jumping off the wall
 			{
@@ -248,10 +234,11 @@ namespace SupanthaPaul
 					Flip();
 				m_rb.AddForce(new Vector2(-m_onWallSide * wallClimbForce.x, wallClimbForce.y), ForceMode2D.Impulse);
 			}
+            #endregion
 
-		}
+        }
 
-		void Flip()
+        void Flip()
 		{
 			m_facingRight = !m_facingRight;
 			Vector3 scale = transform.localScale;

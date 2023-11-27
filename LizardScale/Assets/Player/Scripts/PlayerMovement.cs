@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+   public Platform platform;
+   PathingManager pathingManager;
    public float moveSpeed = 5f;
    public float jumpForce = 5f;
    private int jumpCount = 0;
@@ -13,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
    // Start is called before the first frame update
    void Start()
    {
+       pathingManager = GameObject.FindGameObjectWithTag("PathingController").GetComponent<PathingManager>();
        rb = GetComponent<Rigidbody2D>();
    }
 
@@ -42,6 +46,11 @@ public class PlayerMovement : MonoBehaviour
        if (collision.gameObject.CompareTag("Ground"))
        {
            jumpCount = 0;
+           if(collision.gameObject.GetComponent<Platform>() != null)
+           {
+               platform = collision.gameObject.GetComponent<Platform>();
+               pathingManager.EventUpdate();
+           }
        }
    }
 }

@@ -21,7 +21,11 @@ public class PathingManager : MonoBehaviour
     {
         connectionDictionary.Add(platform, connections);
     }
-       
+     
+    public void EventUpdate()
+    {
+        updated();
+    }
              
     
     public List<ConnectionPlatform> FindPath(Platform currentPlatform, Platform targetPlatform)

@@ -72,4 +72,13 @@ public abstract class Enemy : MonoBehaviour
         }
         
     }
+
+    public void Damage(float amount)
+    {
+        hp -= amount;
+        if (hp < 0)
+        {
+            Destroy(this);
+        }
+    }
 }

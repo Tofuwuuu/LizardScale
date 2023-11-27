@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fb923e4e9b503a438635cc0c21e60e7, type: 3}
-  m_Name: Ranged Flyer
+  m_Name: Lizard
   m_EditorClassIdentifier: 
-  health: 50
-  speed: 0.1
-  chasingSpeed: 0.2
-  agroDistance: 10
+  health: 100
+  speed: 3
+  agroDistance: 6
   canJump: 0
   attacks:
-  - {fileID: 11400000, guid: b2668ce3a1d518b478594534a15799ba, type: 2}
+  - {fileID: 11400000, guid: 556b024b56d1d9e438076f6cda51373d, type: 2}
