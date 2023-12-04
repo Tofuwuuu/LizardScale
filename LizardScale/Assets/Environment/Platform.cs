@@ -13,7 +13,6 @@ public class Platform : MonoBehaviour
     public ConnectionPlatform[] surroundingPlatformsData;
     BoxCollider2D boxCollider;
     LayerMask ignore;
-    PathingManager pathingManager;
 
     public float horizontalDropDistance = 1; //The amount that the enemy moves sideways while dropping down onto a lower platform. Will depend on how big the enemy sprites are. Can edit in inspector if its a close call whether the enemy will land or not
     float edgeBuffer = .5f; //Distance enemies will stand from the edge, this gets added to the width offset
@@ -40,12 +39,6 @@ public class Platform : MonoBehaviour
 
     private void Start()
     {
-        GenerateNearbyPlatformLinks();
-        pathingManager = GameObject.FindGameObjectWithTag("PathingController").GetComponent<PathingManager>();
-        if(pathingManager != null && surroundingPlatformsData.Length != 0)
-        {
-            AddDataToManager();
-        }
     }
 
 
@@ -147,10 +140,6 @@ public class Platform : MonoBehaviour
         }
     }
 
-    private void AddDataToManager()
-    {
-        pathingManager.AddConnections(this, surroundingPlatformsData);
-    }
 }
 
 

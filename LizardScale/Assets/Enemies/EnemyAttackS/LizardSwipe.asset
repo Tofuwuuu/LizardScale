@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d5c28b9c72b604ea3e138a61092aa7, type: 3}
   m_Name: LizardSwipe
   m_EditorClassIdentifier: 
-  attackRange: 2
+  attackRange: 4
   attackDamage: 20
   recoveryTime: 3
   attackName: swipe

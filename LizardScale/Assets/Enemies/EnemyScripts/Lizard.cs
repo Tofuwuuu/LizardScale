@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Lizard : Enemy
 {
-    PathingManager pathingManager;
-    List<ConnectionPlatform> platforms = new List<ConnectionPlatform>();
     // Start is called before the first frame update
     void Start()
     {
-        pathingManager = GameObject.FindGameObjectWithTag("PathingManager").GetComponent<PathingManager>();
         states.Add(new Idle());//0
         states.Add(new Pacing());//1
         states.Add(new Chasing());//2
@@ -50,8 +49,10 @@ public class Lizard : Enemy
 
     IEnumerator attackPause()
     {
+        GetComponent<Animator>().SetBool("walk", false);
         yield return new WaitForSeconds(attacks[0].recoveryTime);
         SwitchState(states[2]);
+        GetComponent<Animator>().SetBool("Attacking", false);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -62,17 +63,31 @@ public class Lizard : Enemy
         }
     }
 
-    private void UpdatePath()
+    LayerMask mask;
+    public void AttackFrame()
     {
-        platforms =  pathingManager.FindPath(Platform, player.GetComponent<PlayerMovement>().platform);
-    }
+        
+        mask |= (1 << 10);
+        int facedir;
+        if(GetComponent<SpriteRenderer>().flipX)
+        {
+            facedir = 1;
+        }
+        else
+        {
+            facedir = 0;
+        }
 
-    private void OnEnable()
-    {
-        PathingManager.updated += UpdatePath;
-    }
-    private void OnDisable()
-    {
-        PathingManager.updated -= UpdatePath;
+        RaycastHit2D hit;
+        Vector2 castDir = facedir == 1 ? Vector2.right : Vector2.left;
+        hit = Physics2D.Raycast(gameObject.transform.position, castDir, 1.5f, mask);
+        if (hit.collider != null)
+        {
+            //print(hit.collider.gameObject.name);
+            if (hit.collider.gameObject.layer == 10)
+            {
+                hit.collider.gameObject.GetComponent<PlayerMovement>().Damage(25);
+            }
+        }
     }
 }

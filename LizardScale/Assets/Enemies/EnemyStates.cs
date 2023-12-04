@@ -84,9 +84,11 @@ public class Pacing : BaseState
                 if (currentTarget == sides.left)
                 {
                     currentTarget = sides.right;
+                    enemy.GetComponent<SpriteRenderer>().flipX = true;
                 }
                 else
                 {
+                    enemy.GetComponent<SpriteRenderer>().flipX=false;
                     currentTarget = sides.left;
                 }
                 progress = 0;
@@ -97,11 +99,13 @@ public class Pacing : BaseState
     }
     public override void StateBegin(Enemy enemy)
     {
+        enemy.GetComponent<SpriteRenderer>().flipX = false;
         currentTarget = sides.left;
+        enemy.GetComponent<Animator>().SetBool("walk", true);
     }
     public override void StateEnd(Enemy enemy)
     {
-
+        
     }
 
 }//Chooses 2 points on the current platform and walks between them
@@ -157,7 +161,7 @@ public class FlyingChasing : BaseState
     public override void StateUpdate(Enemy enemy)
     {
         target = GetPlayerLocation(enemy);
-        enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, target, enemy.speed);
+        enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, target, enemy.speed * Time.deltaTime);
         if (enemy.transform.position.x < GetPlayerLocation(enemy).x)
         {
             enemy.GetComponent<SpriteRenderer>().flipX = true;
@@ -210,9 +214,34 @@ public class Chasing : BaseState
 {
     public override void StateUpdate(Enemy enemy)
     {
-        MoveTo(enemy, GetPlayerLocation(enemy), enemy.speed * Time.deltaTime);
         
+        if(enemy.transform.position.x > enemy.player.transform.position.x)
+        {
+            enemy.GetComponent<SpriteRenderer>().flipX = false;
+            if(GetPlayerLocation(enemy).x > enemy.Platform.leftBound.x)
+            {
+                MoveTo(enemy, GetPlayerLocation(enemy), enemy.speed * Time.deltaTime);
+            }
+            else
+            {
+                MoveTo(enemy, enemy.Platform.leftBound, enemy.speed * Time.deltaTime);
+            }
+            
+        }
+        else
+        {
+            enemy.GetComponent<SpriteRenderer>().flipX = true;
+            if (GetPlayerLocation(enemy).x < enemy.Platform.rightBound.x)
+            {
+                MoveTo(enemy, GetPlayerLocation(enemy), enemy.speed * Time.deltaTime);
+            }
+            else
+            {
+                MoveTo(enemy, enemy.Platform.rightBound, enemy.speed * Time.deltaTime);
+            }
+        }
     }
+        
     public override void StateBegin(Enemy enemy)
     {
         isCompleted=false;
@@ -232,6 +261,7 @@ public class MeleeAttacking : BaseState
     public override void StateBegin(Enemy enemy)
     {
         isCompleted=false;
+        enemy.GetComponent<Animator>().SetBool("Attacking", true);
     }
     public override void StateEnd(Enemy enemy)
     {

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6442094257653418473}
   - component: {fileID: 3722826713224999210}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GunReference
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 8249892803112364299}
   - component: {fileID: 6203234356168191401}
   - component: {fileID: 308895616861369940}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RangedFlyer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.53721124, y: 0.53721124, z: 0.53721124}
+  m_LocalScale: {x: 0.46756497, y: 0.46756497, z: 0.46756497}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6442094257653418473}
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 6852006488867946624}
   - component: {fileID: 884542310272857749}
   - component: {fileID: 1135710444534456484}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
