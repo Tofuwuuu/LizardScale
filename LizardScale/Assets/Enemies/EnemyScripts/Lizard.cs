@@ -77,6 +77,7 @@ public class Lizard : Enemy
         {
             facedir = 0;
         }
+        GetComponent<AudioSource>().Play();
 
         RaycastHit2D hit;
         Vector2 castDir = facedir == 1 ? Vector2.right : Vector2.left;

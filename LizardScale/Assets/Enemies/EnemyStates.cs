@@ -145,7 +145,7 @@ public class Hovering : BaseState
 
     public bool FloatTo(Enemy enemy, Vector2 target, float speed)
     {
-        enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, target, speed);
+        enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, target, speed * Time.deltaTime);
         if (Vector2.Distance(enemy.transform.position, target) < .01f)
         {
             return true;
@@ -215,29 +215,32 @@ public class Chasing : BaseState
     public override void StateUpdate(Enemy enemy)
     {
         
-        if(enemy.transform.position.x > enemy.player.transform.position.x)
+        if(enemy.Platform != null)
         {
-            enemy.GetComponent<SpriteRenderer>().flipX = false;
-            if(GetPlayerLocation(enemy).x > enemy.Platform.leftBound.x)
+            if (enemy.transform.position.x > enemy.player.transform.position.x)
             {
-                MoveTo(enemy, GetPlayerLocation(enemy), enemy.speed * Time.deltaTime);
+                enemy.GetComponent<SpriteRenderer>().flipX = false;
+                if (enemy.player.transform.position.x > enemy.Platform.leftBound.x)
+                {
+                    MoveTo(enemy, GetPlayerLocation(enemy), enemy.speed * Time.deltaTime);
+                }
+                else
+                {
+                    MoveTo(enemy, enemy.Platform.leftBound, enemy.speed * Time.deltaTime);
+                }
+
             }
             else
             {
-                MoveTo(enemy, enemy.Platform.leftBound, enemy.speed * Time.deltaTime);
-            }
-            
-        }
-        else
-        {
-            enemy.GetComponent<SpriteRenderer>().flipX = true;
-            if (GetPlayerLocation(enemy).x < enemy.Platform.rightBound.x)
-            {
-                MoveTo(enemy, GetPlayerLocation(enemy), enemy.speed * Time.deltaTime);
-            }
-            else
-            {
-                MoveTo(enemy, enemy.Platform.rightBound, enemy.speed * Time.deltaTime);
+                enemy.GetComponent<SpriteRenderer>().flipX = true;
+                if (enemy.player.transform.position.x < enemy.Platform.rightBound.x)
+                {
+                    MoveTo(enemy, GetPlayerLocation(enemy), enemy.speed * Time.deltaTime);
+                }
+                else
+                {
+                    MoveTo(enemy, enemy.Platform.rightBound, enemy.speed * Time.deltaTime);
+                }
             }
         }
     }

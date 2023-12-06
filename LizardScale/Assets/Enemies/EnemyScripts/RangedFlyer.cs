@@ -82,6 +82,7 @@ public class RangedFlyer : Enemy
         projectile.transform.position = GetComponentInChildren<Transform>().position;
         projectile.GetComponent<Projectile>().CalculateDirection();
         projectile.SetActive(true);
+        GetComponent<AudioSource>().Play();
     }
 
 

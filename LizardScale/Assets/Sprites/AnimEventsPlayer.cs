@@ -14,6 +14,7 @@ public class AnimEventsPlayer : MonoBehaviour
     }
     public void AttackFrame()
     {
+        player.PlayAttkSound();
         RaycastHit2D hit;
         Vector2 castDir = player.lastmovedir == 1 ? Vector2.right : Vector2.left;
         hit = Physics2D.Raycast(gameObject.transform.position, castDir, 2, mask);

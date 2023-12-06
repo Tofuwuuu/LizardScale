@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,17 +18,17 @@ public class PlayerMovement : MonoBehaviour
     bool canmove = true;
     bool attkInput = false;
     bool canattk = true;
-    bool midair = false;
+    public AudioClip[] attacksounds;
 
    // Start is called before the first frame update
    void Start()
    {
-        midair = false;
         animator = GetComponent<Animator>();
        rb = GetComponent<Rigidbody2D>();
    }
 
-   // Update is called once per frame
+   // Update is called once per fram
+
    void Update()
    {
         GetInputs();
@@ -56,6 +57,12 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX=true;
         }
    }
+
+    public void PlayAttkSound()
+    {
+        GetComponent<AudioSource>().clip = attacksounds[Random.Range(0, attacksounds.Length)];
+        GetComponent<AudioSource>().Play();
+    }
 
    void Jump()
    {
@@ -118,7 +125,6 @@ public class PlayerMovement : MonoBehaviour
            {
                platform = collision.gameObject.GetComponent<Platform>();
                 animator.SetBool("Midair", false);
-                midair = false;
                 canJump = true;
            }
        }
@@ -129,7 +135,6 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             animator.SetBool("Midair", true);
-            midair = true;
             canJump = false;
         }
     }
@@ -149,6 +154,7 @@ public class PlayerMovement : MonoBehaviour
         if(hp <= 0)
         {
             gameObject.SetActive(false);
+            SceneManager.LoadScene("GameOver");
         }
     }
 }

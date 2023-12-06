@@ -11,6 +11,7 @@ public abstract class Enemy : MonoBehaviour
     public float agroRange { get; private set; } //Distance before being agroed
     public bool hasAgro { get; protected set; }
     public bool canJump { get; private set; } //Can jump between platforms?
+    public AudioClip deathsound;
 
     public List<BaseState> states;
     public List<EnemyAttackSO> attacks;
@@ -78,7 +79,16 @@ public abstract class Enemy : MonoBehaviour
         hp -= amount;
         if (hp <= 0)
         {
-            gameObject.SetActive(false);
+            GetComponent<AudioSource>().clip = deathsound; GetComponent<AudioSource>().volume = 1; GetComponent<AudioSource>().Play();
+            transform.position = new Vector2(-200, -200);
+            DeathTimer();
+            
         }
+    }
+
+    IEnumerator DeathTimer()
+    {
+        yield return new WaitForSeconds(3);
+        gameObject.SetActive(false);
     }
 }
