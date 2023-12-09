@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 271500270177013690}
   - component: {fileID: 7634226860057654055}
   - component: {fileID: 1465613074399887721}
+  - component: {fileID: 8746781696634689784}
   m_Layer: 0
   m_Name: Elevator
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5590cae50f9f3eb429ab3a1fdb087240, type: 3}
+  m_Sprite: {fileID: -1629719392, guid: df959695a7e08c9479785fe0a33802db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -122,7 +123,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 20.04, y: 100.10224}
+    oldSize: {x: 20.043821, y: 100.04}
     newSize: {x: 20.04, y: 100.10224}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -144,3 +145,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredEnemies: []
+  nextLevel: 
+--- !u!95 &8746781696634689784
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6254184965487691131}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 27abce2ed91d8134cb6f550a5a26d983, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

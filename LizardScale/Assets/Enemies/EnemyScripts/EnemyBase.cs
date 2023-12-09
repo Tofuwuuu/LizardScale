@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,10 @@ public abstract class Enemy : MonoBehaviour
 
     protected float width = .3f;
 
+    public bool dead = false;
+
+    public elevator elevator;
+
 
     private void Awake()//Set all the variables stored in the scriptable object. 
     {
@@ -31,10 +36,12 @@ public abstract class Enemy : MonoBehaviour
         canJump = enemyType.canJump;
         states = new List<BaseState>();
         attacks = new List<EnemyAttackSO>();
+        dead = false;
         foreach(EnemyAttackSO atk in enemyType.attacks)
         {
             attacks.Add(atk);
         }
+        elevator = GameObject.FindGameObjectWithTag("Elevator").GetComponent<elevator>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -80,8 +87,10 @@ public abstract class Enemy : MonoBehaviour
         if (hp <= 0)
         {
             GetComponent<AudioSource>().clip = deathsound; GetComponent<AudioSource>().volume = 1; GetComponent<AudioSource>().Play();
-            transform.position = new Vector2(-200, -200);
-            DeathTimer();
+            transform.position = new Vector2(-100, -100);
+            dead = true;
+            StartCoroutine(DeathTimer());
+            elevator.RoomCompleted();
             
         }
     }

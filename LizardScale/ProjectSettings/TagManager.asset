@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactible
   - Ground
+  - Elevator
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - projectile
   - 
   - Ground
   - Enemy

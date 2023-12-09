@@ -19,4 +19,9 @@ public class UIButtons : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
 }

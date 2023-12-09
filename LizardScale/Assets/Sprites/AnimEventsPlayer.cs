@@ -15,19 +15,23 @@ public class AnimEventsPlayer : MonoBehaviour
     public void AttackFrame()
     {
         player.PlayAttkSound();
-        RaycastHit2D hit;
-        Vector2 castDir = player.lastmovedir == 1 ? Vector2.right : Vector2.left;
-        hit = Physics2D.Raycast(gameObject.transform.position, castDir, 2, mask);
+        player.hitbox.GetComponent<hitbox>().Damage();
+        //RaycastHit2D hit;
+        //Vector2 castDir = player.lastmovedir == 1 ? Vector2.right : Vector2.left;
+        //hit = Physics2D.Raycast(gameObject.transform.position, castDir, 2, mask);
         //print(hit);
         //Debug.DrawLine(gameObject.transform.position, new Vector2(gameObject.transform.position.x + (2 * castDir.x), gameObject.transform.position.y));
-        if (hit.collider != null)
-        {
+        //if (hit.collider != null)
+        //{
             //print(hit.collider.gameObject.name);
-            if(hit.collider.gameObject.layer == 9)
-            {
-                hit.collider.gameObject.GetComponent<Enemy>().Damage(50);
-            }
-        }
+         //   if(hit.collider.gameObject.layer == 9)
+         //   {
+         //       hit.collider.gameObject.GetComponent<Enemy>().Damage(50);
+        //    }
+        //}
     }
-
+    public void Footstep()
+    {
+        player.PlayFootstepSounds();
+    }
 }

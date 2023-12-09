@@ -85,7 +85,7 @@ public class Lizard : Enemy
         if (hit.collider != null)
         {
             //print(hit.collider.gameObject.name);
-            if (hit.collider.gameObject.layer == 10)
+            if (hit.collider.gameObject.tag == "Player")
             {
                 hit.collider.gameObject.GetComponent<PlayerMovement>().Damage(25);
             }

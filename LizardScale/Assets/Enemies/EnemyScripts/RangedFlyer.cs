@@ -70,7 +70,7 @@ public class RangedFlyer : Enemy
         }
         else if(state == states[3])
         {
-            StartCoroutine(PauseHovering(2, 4));
+            StartCoroutine(PauseHovering(2, 2));
         }
         CurrentState = state;
         state.StateBegin(this);

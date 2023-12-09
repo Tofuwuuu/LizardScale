@@ -192,6 +192,8 @@ MonoBehaviour:
   <hp>k__BackingField: 0
   deathsound: {fileID: 8300000, guid: 13d2919f45c610b498b3ae3c777e3f68, type: 3}
   attacks: []
+  dead: 0
+  elevator: {fileID: 0}
 --- !u!58 &6203234356168191401
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -362,7 +364,8 @@ GameObject:
   - component: {fileID: 6852006488867946624}
   - component: {fileID: 884542310272857749}
   - component: {fileID: 1135710444534456484}
-  m_Layer: 10
+  - component: {fileID: 6302559667386273323}
+  m_Layer: 6
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,8 +381,8 @@ Transform:
   m_GameObject: {fileID: 6458883670500517493}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.3678055, y: -0.6691624, z: 0}
-  m_LocalScale: {x: 0.83619577, y: 0.83619577, z: 0.83619577}
+  m_LocalPosition: {x: 2.36, y: -1.49, z: 0}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6442094257653418473}
@@ -425,9 +428,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
-    type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 2062725162, guid: e1382b3df23d9c74b8dd3291a1c18fcf, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -483,6 +485,27 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00000024460712, y: 0.00000006115178}
+  m_Offset: {x: 0.6711403, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 4.7317085
+--- !u!95 &6302559667386273323
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6458883670500517493}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5969c4fab63c1094497d9462f5e5ace6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

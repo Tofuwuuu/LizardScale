@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -31,7 +30,7 @@ public class Projectile : MonoBehaviour
             collision.gameObject.GetComponent<PlayerMovement>().Damage(10);
         }
         gameObject.transform.position = Vector2.zero;
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
  
     }
 

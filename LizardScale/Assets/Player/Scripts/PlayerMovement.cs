@@ -8,17 +8,22 @@ public class PlayerMovement : MonoBehaviour
    public float hp = 100;
    public Platform platform;
    public float moveSpeed = 5f;
-   public float jumpForce = 2f;
+   public float jumpForce = 45f;
    private Rigidbody2D rb;
-    Animator animator;
+    public Animator animator;
     bool jumpInput = false;
     int movedir = 0;
     public int lastmovedir = 1;
-    bool canJump = true;
+    public bool canJump = true;
     bool canmove = true;
     bool attkInput = false;
     bool canattk = true;
     public AudioClip[] attacksounds;
+    bool canshoot = true;
+    bool shootinput;
+    public GameObject proj;
+    public GameObject hitbox;
+    public AudioClip[] footsteps;
 
    // Start is called before the first frame update
    void Start()
@@ -35,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
        if(movedir != 0 && canmove)
        {
             transform.position += (new Vector3(moveSpeed * movedir * Time.deltaTime, 0, 0));
+            hitbox.transform.localScale = new Vector2(Mathf.Abs(hitbox.transform.localScale.x) * lastmovedir, hitbox.transform.localScale.y);
             animator.SetBool("Walking", true);
        }
         if (jumpInput && canJump)
@@ -46,6 +52,20 @@ public class PlayerMovement : MonoBehaviour
         if(canattk && attkInput)
         {
             StartCoroutine(AttackDelay());
+        }
+
+        if(canshoot && shootinput)
+        {
+         
+            canshoot = false;
+            proj.SetActive(true);
+            proj.transform.position = transform.position;
+            proj.GetComponent<SpriteRenderer>().flipX = GetComponent<SpriteRenderer>().flipX;
+            proj.GetComponent<ProjectilePlayer>().dir = GetComponent<SpriteRenderer>().flipX  ? -1 : 1;
+            proj.GetComponent<ProjectilePlayer>().orient();
+            StartCoroutine(ProjCooldown());
+            PlayAttkSound();
+            
         }
 
         if(lastmovedir == 1)
@@ -62,6 +82,15 @@ public class PlayerMovement : MonoBehaviour
     {
         GetComponent<AudioSource>().clip = attacksounds[Random.Range(0, attacksounds.Length)];
         GetComponent<AudioSource>().Play();
+    }
+
+    public void PlayFootstepSounds()
+    {
+        float vol = GetComponent<AudioSource>().volume;
+        GetComponent<AudioSource>().volume = 1;
+        GetComponent<AudioSource>().clip = footsteps[Random.Range(0, footsteps.Length)];
+        GetComponent<AudioSource>().Play();
+        GetComponent<AudioSource>().volume = vol;
     }
 
    void Jump()
@@ -115,20 +144,12 @@ public class PlayerMovement : MonoBehaviour
         { 
             attkInput = false; 
         }
+        if(Input.GetMouseButtonDown(1))
+        {
+            shootinput = true;
+        }
+        else { shootinput = false; }
     }
-
-   private void OnCollisionEnter2D(Collision2D collision)
-   {
-       if (collision.gameObject.CompareTag("Ground"))
-       {
-           if(collision.gameObject.GetComponent<Platform>() != null)
-           {
-               platform = collision.gameObject.GetComponent<Platform>();
-                animator.SetBool("Midair", false);
-                canJump = true;
-           }
-       }
-   }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -144,7 +165,11 @@ public class PlayerMovement : MonoBehaviour
         Attack();
         yield return new WaitForSeconds(.5f);
         canmove = true;
-        canJump = true;
+        if(!animator.GetBool("Midair"))
+        {
+            canJump = true;
+        }
+        
         canattk = true;
     }
 
@@ -156,5 +181,12 @@ public class PlayerMovement : MonoBehaviour
             gameObject.SetActive(false);
             SceneManager.LoadScene("GameOver");
         }
+    }
+
+    IEnumerator ProjCooldown()
+    {
+        
+        yield return new WaitForSeconds(2);
+        canshoot = true;
     }
 }
