@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Ranged Flyer
   m_EditorClassIdentifier: 
   health: 50
-  speed: 0.02
-  chasingSpeed: 2
-  agroDistance: 4
+  speed: 1
+  agroDistance: 10
   canJump: 0
   attacks:
   - {fileID: 11400000, guid: b2668ce3a1d518b478594534a15799ba, type: 2}

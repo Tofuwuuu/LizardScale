@@ -27,7 +27,7 @@ public abstract class BaseState
     }
     public bool MoveTo(Enemy enemy, Vector2 target, float speed)
     {
-        enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, target, speed);
+        enemy.transform.position = Vector2.MoveTowards(new Vector2(enemy.transform.position.x, enemy.transform.position.y), new Vector2(target.x, enemy.transform.position.y), speed);
         if(Vector2.Distance(new Vector2(enemy.transform.position.x, 0), new Vector2(target.x, 0)) < .01f)
         {
             return true;
@@ -62,7 +62,7 @@ public class Pacing : BaseState
     float progress;
     public override void StateUpdate(Enemy enemy)
     {
-        if(enemy.Platform != null)
+        if (enemy.Platform != null)
         {
             if (!status)
             {
@@ -70,7 +70,7 @@ public class Pacing : BaseState
                 {
                     progress = Mathf.Clamp01(enemy.speed * Time.deltaTime);
                     status = MoveTo(enemy, enemy.Platform.leftBound, progress);
-                    
+
                 }
                 else
                 {
@@ -80,27 +80,32 @@ public class Pacing : BaseState
             }
             else
             {
-                
+
                 if (currentTarget == sides.left)
                 {
                     currentTarget = sides.right;
+                    enemy.GetComponent<SpriteRenderer>().flipX = true;
                 }
                 else
                 {
+                    enemy.GetComponent<SpriteRenderer>().flipX=false;
                     currentTarget = sides.left;
                 }
                 progress = 0;
                 status = false;
             }
         }
+        //else { Debug.Log("hh"); }
     }
     public override void StateBegin(Enemy enemy)
     {
+        enemy.GetComponent<SpriteRenderer>().flipX = false;
         currentTarget = sides.left;
+        enemy.GetComponent<Animator>().SetBool("walk", true);
     }
     public override void StateEnd(Enemy enemy)
     {
-
+        
     }
 
 }//Chooses 2 points on the current platform and walks between them
@@ -140,7 +145,7 @@ public class Hovering : BaseState
 
     public bool FloatTo(Enemy enemy, Vector2 target, float speed)
     {
-        enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, target, speed);
+        enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, target, speed * Time.deltaTime);
         if (Vector2.Distance(enemy.transform.position, target) < .01f)
         {
             return true;
@@ -156,7 +161,7 @@ public class FlyingChasing : BaseState
     public override void StateUpdate(Enemy enemy)
     {
         target = GetPlayerLocation(enemy);
-        enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, target, enemy.speed);
+        enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, target, enemy.speed * Time.deltaTime);
         if (enemy.transform.position.x < GetPlayerLocation(enemy).x)
         {
             enemy.GetComponent<SpriteRenderer>().flipX = true;
@@ -201,5 +206,68 @@ public class Shooting : BaseState
     public override void StateEnd(Enemy enemy)
     {
         isCompleted = true;
+    }
+}
+
+
+public class Chasing : BaseState
+{
+    public override void StateUpdate(Enemy enemy)
+    {
+        
+        if(enemy.Platform != null)
+        {
+            if (enemy.transform.position.x > enemy.player.transform.position.x)
+            {
+                enemy.GetComponent<SpriteRenderer>().flipX = false;
+                if (enemy.player.transform.position.x > enemy.Platform.leftBound.x)
+                {
+                    MoveTo(enemy, GetPlayerLocation(enemy), enemy.speed * Time.deltaTime);
+                }
+                else
+                {
+                    MoveTo(enemy, enemy.Platform.leftBound, enemy.speed * Time.deltaTime);
+                }
+
+            }
+            else
+            {
+                enemy.GetComponent<SpriteRenderer>().flipX = true;
+                if (enemy.player.transform.position.x < enemy.Platform.rightBound.x)
+                {
+                    MoveTo(enemy, GetPlayerLocation(enemy), enemy.speed * Time.deltaTime);
+                }
+                else
+                {
+                    MoveTo(enemy, enemy.Platform.rightBound, enemy.speed * Time.deltaTime);
+                }
+            }
+        }
+    }
+        
+    public override void StateBegin(Enemy enemy)
+    {
+        isCompleted=false;
+    }
+    public override void StateEnd(Enemy enemy)
+    {
+        isCompleted=true;
+    }
+}
+
+public class MeleeAttacking : BaseState
+{
+    public override void StateUpdate(Enemy enemy)
+    {
+        
+    }
+    public override void StateBegin(Enemy enemy)
+    {
+        isCompleted=false;
+        enemy.GetComponent<Animator>().SetBool("Attacking", true);
+    }
+    public override void StateEnd(Enemy enemy)
+    {
+        isCompleted=true;
     }
 }

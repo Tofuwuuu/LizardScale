@@ -19,7 +19,6 @@ public class RangedFlyer : Enemy
         states.Add(new Shooting());//3
         CurrentState = states[0];
         SwitchState(states[1]);
-        //states.Add(new )
     }
 
     private void FixedUpdate()
@@ -71,7 +70,7 @@ public class RangedFlyer : Enemy
         }
         else if(state == states[3])
         {
-            StartCoroutine(PauseHovering(2, 4));
+            StartCoroutine(PauseHovering(2, 2));
         }
         CurrentState = state;
         state.StateBegin(this);
@@ -83,6 +82,7 @@ public class RangedFlyer : Enemy
         projectile.transform.position = GetComponentInChildren<Transform>().position;
         projectile.GetComponent<Projectile>().CalculateDirection();
         projectile.SetActive(true);
+        GetComponent<AudioSource>().Play();
     }
 
 
